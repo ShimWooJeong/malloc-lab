@@ -24,6 +24,8 @@ static char *mem_max_addr;   /* largest legal heap address */
  */
 void mem_init(void)
 {
+    //할당기 초기화 부분
+    //힙에 가용한 가상메모리를 더블 워드로 정렬된 바이트의 배열로 모델링
     /* allocate the storage we will use to model the available VM */
     if ((mem_start_brk = (char *)malloc(MAX_HEAP)) == NULL) {
 	fprintf(stderr, "mem_init_vm: malloc error\n");
@@ -31,7 +33,9 @@ void mem_init(void)
     }
 
     mem_max_addr = mem_start_brk + MAX_HEAP;  /* max legal heap address */
+    //최대 힙 주소
     mem_brk = mem_start_brk;                  /* heap is empty initially */
+    //힙의 top 주소 (초기화할 땐 start brk)
 }
 
 /* 
@@ -60,9 +64,9 @@ void *mem_sbrk(int incr)
     char *old_brk = mem_brk;
 
     if ( (incr < 0) || ((mem_brk + incr) > mem_max_addr)) {
-	errno = ENOMEM;
-	fprintf(stderr, "ERROR: mem_sbrk failed. Ran out of memory...\n");
-	return (void *)-1;
+	    errno = ENOMEM;
+	    fprintf(stderr, "ERROR: mem_sbrk failed. Ran out of memory...\n");
+	    return (void *)-1;
     }
     mem_brk += incr;
     return (void *)old_brk;
