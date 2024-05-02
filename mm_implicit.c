@@ -34,14 +34,6 @@ team_t team = {
     /* Second member's email address (leave blank if none) */
     ""};
 
-/* single word (4) or double word (8) alignment */
-#define ALIGNMENT 8
-
-/* rounds up to the nearest multiple of ALIGNMENT */
-#define ALIGN(size) (((size) + (ALIGNMENT - 1)) & ~0x7)
-
-#define SIZE_T_SIZE (ALIGN(sizeof(size_t)))
-
 ///////////프로그램 전반에 반복적으로 쓰이는 함수/변수들 매크로로 선언///////////
 #define WSIZE 4             // 싱글 워드 사이즈
 #define DSIZE 8             // 더블 워드 사이즈
